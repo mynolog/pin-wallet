@@ -1,14 +1,14 @@
-import MobileNavigator from '@/components/block/mobile/MobileNavigator'
+import MobileNavigationMenu from '@/components/block/mobile/MobileNavigationMenu'
 import { Outlet } from 'react-router'
 
 export default function RootLayout() {
   return (
-    <div className="flex h-screen w-full max-w-md items-center justify-center sm:max-w-sm">
-      <div className="flex h-screen w-md items-center justify-center sm:w-sm">
-        <main className="flex h-screen flex-1 flex-col p-4">
+    <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex h-screen w-full max-w-2xl p-4">
+        <main>
           <Outlet />
         </main>
-        <MobileNavigator />
+        <MobileNavigationMenu className="fixed bottom-0 z-50 w-full max-w-2xl" />
       </div>
     </div>
   )
