@@ -6,6 +6,7 @@ import SettingsPage from '@/pages/settings/Settings'
 import ExpenseCreatePage from '@/pages/trip/expenses/ExpenseCreate'
 import TripDetailPage from '@/pages/trip/TripDetail'
 import { ROUTES } from './index'
+import GoogleCallbackPage from '@/pages/auth/GoogleCallback'
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,6 @@ export const router = createBrowserRouter([
         path: ROUTES.TRIPS.EXPENSE_ROOT,
         element: null,
       },
-
       {
         path: ROUTES.TRIPS.EXPENSE_NEW(':tripId'),
         element: <ExpenseCreatePage />,
@@ -57,10 +57,13 @@ export const router = createBrowserRouter([
         path: ROUTES.TRIPS.EXPENSE_DELETE(':tripId', ':expenseId'),
         element: null,
       },
-
       {
-        path: 'settings',
+        path: ROUTES.SETTINGS,
         element: <SettingsPage />,
+      },
+      {
+        path: 'auth/callback',
+        element: <GoogleCallbackPage />,
       },
     ],
   },

@@ -44,26 +44,23 @@ const mobileNavigatorList: MobileNavigatorItem[] = [
 
 export default function MobileNavigator() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-background z-50 flex justify-around items-center py-3">
+    <div className="bg-background fixed bottom-0 z-50 flex max-w-md items-center justify-around p-4 sm:max-w-sm">
       <NavigationMenu>
-        <NavigationMenuList className="flex justify-around flex-1">
+        <NavigationMenuList className="flex w-full justify-between">
           {mobileNavigatorList.map((navItem) => (
-            <NavigationMenuItem
-              key={navItem.navId}
-              className="xl:w-48 lg:w-36 md:w-32 sm:w-24 w-20"
-            >
+            <NavigationMenuItem key={navItem.navId} className="w-18">
               <NavigationMenuLink asChild>
                 <Link
                   to={navItem.route}
-                  className="flex flex-col items-center justify-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary flex flex-col items-center justify-center text-sm transition-colors"
                 >
-                  <div className="w-6 h-6 mb-1">{navItem.icon}</div>
+                  <div className="mb-1 h-6 w-6">{navItem.icon}</div>
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-    </nav>
+    </div>
   )
 }

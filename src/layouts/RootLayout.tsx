@@ -3,11 +3,13 @@ import { Outlet } from 'react-router'
 
 export default function RootLayout() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 flex flex-col items-center p-4">
-        <Outlet />
-      </main>
-      <MobileNavigator />
+    <div className="flex h-screen w-full max-w-md items-center justify-center sm:max-w-sm">
+      <div className="flex h-screen w-md items-center justify-center sm:w-sm">
+        <main className="flex h-screen flex-1 flex-col p-4">
+          <Outlet />
+        </main>
+        <MobileNavigator />
+      </div>
     </div>
   )
 }
