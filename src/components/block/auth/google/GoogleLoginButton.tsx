@@ -1,7 +1,13 @@
+import { FaGoogle } from 'react-icons/fa6'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/supabaseClient'
+import { cn } from '@/lib/utils'
 
-export function GoogleLoginButton() {
+interface GoogleLoginButtonProps {
+  className?: string
+}
+
+export function GoogleLoginButton({ className }: GoogleLoginButtonProps) {
   const handleGoogleLogin = () => {
     supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -11,5 +17,13 @@ export function GoogleLoginButton() {
     })
   }
 
-  return <Button onClick={handleGoogleLogin}>Sign in with Google</Button>
+  return (
+    <Button
+      onClick={handleGoogleLogin}
+      className={cn('cursor-pointer bg-[#4285F4] hover:bg-[#357AE8]', className)}
+    >
+      <FaGoogle />
+      <span>Google</span>
+    </Button>
+  )
 }

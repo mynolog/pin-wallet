@@ -1,10 +1,9 @@
-import { GoogleLoginButton } from '@/components/block/auth/google/GoogleLoginButton'
+import MobilePageHeader from '@/components/block/mobile/MobilePageHeader'
 
 export default function HomePage() {
   return (
-    <div>
-      <h1>HomePage</h1>
-      <GoogleLoginButton />
+    <div className="flex h-screen flex-col">
+      <MobilePageHeader title="홈" />
     </div>
   )
 }

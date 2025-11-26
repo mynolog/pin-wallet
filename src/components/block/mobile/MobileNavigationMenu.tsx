@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { NavLink } from 'react-router'
 import { House, CirclePlus, TicketsPlane, MapPin, User } from 'lucide-react'
 import { ROUTES } from '@/routes'
 import { cn } from '@/lib/utils'
@@ -47,12 +47,19 @@ export default function MobileNavigationMenu({ className }: MobileNavigationMenu
       <ul className="grid w-full grid-cols-5">
         {mobileNavigationList.map((navItem) => (
           <li key={navItem.navId} className="flex w-full items-center justify-center">
-            <Link
+            <NavLink
               to={navItem.route}
-              className="text-muted-foreground hover:text-primary flex w-full flex-col items-center justify-center text-sm transition-colors"
+              end
+              className={({ isActive }) =>
+                cn(
+                  'text-muted-foreground flex w-full flex-col items-center justify-center text-sm transition-colors hover:text-orange-400',
+                  isActive && 'text-orange-500',
+                  !isActive && 'text-muted-foreground',
+                )
+              }
             >
               {navItem.icon}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>
