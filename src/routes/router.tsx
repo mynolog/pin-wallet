@@ -6,6 +6,9 @@ import SettingsPage from '@/pages/settings/Settings'
 import ExpenseCreatePage from '@/pages/trip/expenses/ExpenseCreate'
 import TripDetailPage from '@/pages/trip/TripDetail'
 import { ROUTES } from './index'
+import GoogleCallbackPage from '@/pages/auth/GoogleCallback'
+import ProtectedRoute from './guards/ProtectedRoute'
+import PublicRoute from './guards/PublicRoute'
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +17,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.MAP,
@@ -22,45 +29,59 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.TRIPS.ROOT,
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
       {
         path: ROUTES.TRIPS.DETAIL(':tripId'),
-        element: <TripDetailPage />,
+        element: (
+          <ProtectedRoute>
+            <TripDetailPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.TRIPS.EDIT(':tripId'),
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
       {
         path: ROUTES.TRIPS.DELETE(':tripId'),
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
       {
         path: ROUTES.TRIPS.EXPENSE_ROOT,
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
-
       {
         path: ROUTES.TRIPS.EXPENSE_NEW(':tripId'),
-        element: <ExpenseCreatePage />,
+        element: (
+          <ProtectedRoute>
+            <ExpenseCreatePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.TRIPS.EXPENSE_DETAIL(':tripId', ':expenseId'),
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
       {
         path: ROUTES.TRIPS.EXPENSE_EDIT(':tripId', ':expenseId'),
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
       {
         path: ROUTES.TRIPS.EXPENSE_DELETE(':tripId', ':expenseId'),
-        element: null,
+        element: <ProtectedRoute>{null}</ProtectedRoute>,
       },
-
       {
-        path: 'settings',
+        path: ROUTES.SETTINGS,
         element: <SettingsPage />,
+      },
+      {
+        path: 'auth/callback',
+        element: (
+          <PublicRoute>
+            <GoogleCallbackPage />
+          </PublicRoute>
+        ),
       },
     ],
   },
