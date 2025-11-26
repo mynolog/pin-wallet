@@ -8,7 +8,7 @@ export default function AppProvider({ children }: AppProviderProps) {
   return (
     <>
       {children}
-      <ToasterProvider />
+      <ToasterProvider position="top-center" />
     </>
   )
 }
