@@ -10,6 +10,7 @@ export type Database = {
     Tables: {
       trips: {
         Row: {
+          budget: number
           country: Database['public']['Enums']['country_code']
           created_at: string
           description: string | null
@@ -21,6 +22,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          budget?: number
           country: Database['public']['Enums']['country_code']
           created_at?: string
           description?: string | null
@@ -32,6 +34,7 @@ export type Database = {
           user_id?: string
         }
         Update: {
+          budget?: number
           country?: Database['public']['Enums']['country_code']
           created_at?: string
           description?: string | null
