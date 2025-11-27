@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router'
-import { House, CirclePlus, TicketsPlane, MapPin, User } from 'lucide-react'
+import { House, MapPin, User } from 'lucide-react'
 import { ROUTES } from '@/routes'
 import { cn } from '@/lib/utils'
 
@@ -22,16 +22,6 @@ const mobileNavigationList: MobileNavigationItem[] = [
   },
   {
     navId: 'nav-02',
-    route: ROUTES.TRIPS.EXPENSE_NEW(':tripId'),
-    icon: <CirclePlus />,
-  },
-  {
-    navId: 'nav-03',
-    route: ROUTES.TRIPS.DETAIL(':tripId'),
-    icon: <TicketsPlane />,
-  },
-  {
-    navId: 'nav-04',
     route: ROUTES.SETTINGS,
     icon: <User />,
   },
@@ -44,7 +34,7 @@ interface MobileNavigationMenuProps {
 export default function MobileNavigationMenu({ className }: MobileNavigationMenuProps) {
   return (
     <nav className={cn('bg-background border-t border-gray-200/50 py-4', className)}>
-      <ul className="grid w-full grid-cols-5">
+      <ul className="grid w-full grid-cols-3">
         {mobileNavigationList.map((navItem) => (
           <li key={navItem.navId} className="flex w-full items-center justify-center">
             <NavLink

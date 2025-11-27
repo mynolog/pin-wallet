@@ -10,6 +10,7 @@ export type Database = {
     Tables: {
       trips: {
         Row: {
+          country: Database['public']['Enums']['country_code']
           created_at: string
           description: string | null
           end_date: string
@@ -20,6 +21,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          country: Database['public']['Enums']['country_code']
           created_at?: string
           description?: string | null
           end_date: string
@@ -30,6 +32,7 @@ export type Database = {
           user_id?: string
         }
         Update: {
+          country?: Database['public']['Enums']['country_code']
           created_at?: string
           description?: string | null
           end_date?: string
@@ -49,7 +52,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      country_code: 'KR' | 'JP'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -174,6 +177,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      country_code: ['KR', 'JP'],
+    },
   },
 } as const
