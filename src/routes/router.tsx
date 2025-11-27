@@ -9,6 +9,7 @@ import { ROUTES } from './index'
 import GoogleCallbackPage from '@/pages/auth/GoogleCallback'
 import ProtectedRoute from './guards/ProtectedRoute'
 import PublicRoute from './guards/PublicRoute'
+import CreateTripPage from '@/pages/trip/CreateTrip'
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.TRIPS.ROOT,
         element: <ProtectedRoute>{null}</ProtectedRoute>,
+      },
+      {
+        path: ROUTES.TRIPS.NEW,
+        element: (
+          <ProtectedRoute>
+            <CreateTripPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.TRIPS.DETAIL(':tripId'),

@@ -3,9 +3,10 @@ import { BadgePlus, TicketsPlane, ChevronUp } from 'lucide-react'
 import MobilePageHeader from '@/components/block/mobile/MobilePageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTrips } from '@/hooks/trips/useTrips'
-import { COUNTRY_EMOJI_MAP } from '@/constants/country'
+import { COUNTRY_MAP } from '@/constants/country'
 import { ROUTES } from '@/routes'
 import { Skeleton } from '@/components/ui/skeleton'
+import CreateTripButton from '@/components/block/trip/CreateTripButton'
 
 export default function HomePage() {
   const { data: trips, isLoading, error } = useTrips()
@@ -13,7 +14,7 @@ export default function HomePage() {
 
   return (
     <div className="flex h-screen flex-col">
-      <MobilePageHeader title="홈" children={<BadgePlus />} />
+      <MobilePageHeader title="홈" children={<CreateTripButton />} />
       <ul className="h-full space-y-2">
         {isLoading &&
           Array.from({ length: 5 }).map((_, index) => (
@@ -47,7 +48,7 @@ export default function HomePage() {
                 <CardTitle>{trip.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                {trip.country && <span>{COUNTRY_EMOJI_MAP[trip.country]}</span>}
+                {trip.country && <span>{COUNTRY_MAP[trip.country].emoji}</span>}
                 {trip.start_date && trip.end_date && (
                   <p className="text-muted-foreground text-sm">
                     {trip.start_date} ~ {trip.end_date}
