@@ -1,5 +1,5 @@
 import type { CreateTripSupabaseDto } from '@/types/trip'
-import type { CreateTripDto } from '@/schemas/trip'
+import type { CreateTripSchema } from '@/schemas/trip'
 import { useNavigate } from 'react-router'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,6 +41,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { supabase } from '@/lib/supabaseClient'
+import { useAuthStore } from '@/stores/authStore'
 
 /* TODO: CreateTripForm 컴포넌트 리팩토링
 - watch api -> Controller or field value로 대체
@@ -49,6 +50,7 @@ import { supabase } from '@/lib/supabaseClient'
  */
 
 export default function CreateTripForm() {
+  const user = useAuthStore((state) => state.user)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const {
@@ -59,7 +61,7 @@ export default function CreateTripForm() {
     watch,
     control,
     formState: { errors },
-  } = useForm<CreateTripDto>({
+  } = useForm<CreateTripSchema>({
     resolver: zodResolver(createTripFormSchema),
     defaultValues: {
       title: '',
@@ -75,11 +77,8 @@ export default function CreateTripForm() {
   const currentEndDate = watch('end_date')
   const currentCountry = watch('country')
 
-  const onSubmit = async (data: CreateTripDto) => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-    if (!user) return
+  const onSubmit = async (data: CreateTripSchema) => {
+    if (!user) throw new Error('No user logged in')
 
     const payload: CreateTripSupabaseDto = {
       ...data,
@@ -98,7 +97,9 @@ export default function CreateTripForm() {
     navigate(ROUTES.HOME)
   }
 
-  const handleCancelDatePicker = (field: keyof Pick<CreateTripDto, 'start_date' | 'end_date'>) => {
+  const handleCancelDatePicker = (
+    field: keyof Pick<CreateTripSchema, 'start_date' | 'end_date'>,
+  ) => {
     resetField(field)
   }
 

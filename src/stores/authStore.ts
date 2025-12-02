@@ -1,4 +1,4 @@
-import { type User } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 

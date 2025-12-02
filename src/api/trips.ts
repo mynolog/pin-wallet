@@ -8,3 +8,10 @@ export async function fetchTrips() {
   if (error) throw error
   return data
 }
+
+export async function fetchTripDetail(tripId: string | null) {
+  if (!tripId) return null
+  const { data, error } = await supabase.from('trips').select('*').eq('id', tripId).single()
+  if (error) throw error
+  return data
+}
