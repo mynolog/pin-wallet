@@ -8,3 +8,5 @@ export type UpdateTripSupabaseDto = Pick<
   Database['public']['Tables']['trips']['Update'],
   'id' | 'title' | 'budget' | 'description' | 'updated_at'
 >
+
+export type DeleteTripSupabaseDto = Pick<Database['public']['Tables']['trips']['Update'], 'id'>

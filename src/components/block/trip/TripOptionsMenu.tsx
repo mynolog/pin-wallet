@@ -5,11 +5,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
-import { EllipsisVertical, Eraser } from 'lucide-react'
+import { EllipsisVertical } from 'lucide-react'
 import UpdateTripTitleDrawer from './UpdateTripTitleDrawer'
 import type { UpdateTripSupabaseDto } from '@/types/trip'
 import UpdateTripBudgetDrawer from './UpdateTripBudgetDrawer'
 import UpdateTripDescDrawer from './UpdateTripDescDrawer'
+import DeleteTripAlertDialog from './DeleteTripAlertDialog'
 
 interface TripOptionsMenuProps {
   tripOptions: UpdateTripSupabaseDto
@@ -36,8 +37,7 @@ export default function TripOptionsMenu({ tripOptions }: TripOptionsMenuProps) {
           </li>
           <Separator />
           <li className="flex items-center gap-2 text-sm text-red-500">
-            <Eraser className="h-5 w-5" />
-            여행 삭제하기
+            <DeleteTripAlertDialog id={tripOptions.id} />
           </li>
         </ul>
       </DropdownMenuContent>
