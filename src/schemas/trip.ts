@@ -12,4 +12,12 @@ export const createTripFormSchema = z.object({
   description: z.string().optional(),
 })
 
-export type CreateTripDto = z.infer<typeof createTripFormSchema>
+export type CreateTripSchema = z.infer<typeof createTripFormSchema>
+
+export const updateTripSchema = createTripFormSchema.pick({
+  title: true,
+  budget: true,
+  description: true,
+})
+
+export type UpdateTripSchema = z.infer<typeof updateTripSchema>
