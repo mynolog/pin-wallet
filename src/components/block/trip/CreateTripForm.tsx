@@ -42,6 +42,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/stores/authStore'
+import { formatDateLocal } from '@/lib/utils'
 
 /* TODO: CreateTripForm 컴포넌트 리팩토링
 - watch api -> Controller or field value로 대체
@@ -77,15 +78,20 @@ export default function CreateTripForm() {
   const currentEndDate = watch('end_date')
   const currentCountry = watch('country')
 
+  console.log(currentStartDate)
+  console.log(currentEndDate)
+
   const onSubmit = async (data: CreateTripSchema) => {
     if (!user) throw new Error('No user logged in')
 
     const payload: CreateTripSupabaseDto = {
       ...data,
       user_id: user.id,
-      start_date: data.start_date.toISOString(),
-      end_date: data.end_date.toISOString(),
+      start_date: formatDateLocal(data.start_date),
+      end_date: formatDateLocal(data.end_date),
     }
+
+    console.log(payload)
 
     const { error } = await supabase.from('trips').insert(payload).select('*')
 
