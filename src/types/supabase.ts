@@ -8,6 +8,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      expenses: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          trip_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          trip_id: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          trip_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'expenses_trip_id_fkey'
+            columns: ['trip_id']
+            isOneToOne: false
+            referencedRelation: 'trips'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       trips: {
         Row: {
           budget: number
