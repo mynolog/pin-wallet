@@ -1,14 +1,20 @@
 import { clsx, type ClassValue } from 'clsx'
+import { addDays, format, parseISO } from 'date-fns'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDateLocal(date: Date) {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
+export function getDateRange(startDate: string, endDate: string) {
+  const dates: string[] = []
+  let current = parseISO(startDate)
+  const last = parseISO(endDate)
 
-  return `${year}-${month}-${day}`
+  while (current <= last) {
+    dates.push(format(current, 'yyyy-MM-dd'))
+    current = addDays(current, 1)
+  }
+
+  return dates
 }
