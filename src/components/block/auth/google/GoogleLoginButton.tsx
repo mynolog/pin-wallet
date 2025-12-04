@@ -16,7 +16,7 @@ export function GoogleLoginButton({ className }: GoogleLoginButtonProps) {
     supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: BASE_URL,
+        redirectTo: `${BASE_URL}/auth/callback`,
       },
     })
   }
