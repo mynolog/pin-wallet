@@ -7,9 +7,11 @@ import { COUNTRY_MAP } from '@/constants/country'
 import { ROUTES } from '@/routes'
 import { Skeleton } from '@/components/ui/skeleton'
 import CreateTripButton from '@/components/block/trip/CreateTripButton'
+import { useTripStore } from '@/stores/tripStore'
 
 export default function HomePage() {
   const { data: trips, isLoading, error } = useTrips()
+  const { setTripId } = useTripStore()
   const navigate = useNavigate()
 
   return (
@@ -42,7 +44,13 @@ export default function HomePage() {
         )}
 
         {(trips ?? []).map((trip) => (
-          <li key={trip.id} onClick={() => navigate(`${ROUTES.TRIPS.DETAIL(trip.id)}`)}>
+          <li
+            key={trip.id}
+            onClick={() => {
+              setTripId(trip.id)
+              navigate(`${ROUTES.TRIPS.DETAIL(trip.id)}`)
+            }}
+          >
             <Card className="h-32 w-full">
               <CardHeader>
                 <CardTitle>{trip.title}</CardTitle>
