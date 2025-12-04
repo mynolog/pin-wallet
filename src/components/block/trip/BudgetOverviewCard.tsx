@@ -2,15 +2,40 @@ import type { CountryCode } from '@/types/trip'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { COUNTRY_MAP } from '@/constants/country'
 import { Progress } from '@/components/ui/progress'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
 
 interface BudgetOverviewCardProps {
+  tripId: string
+  budget: number
   country?: CountryCode
-  budget?: number
 }
 
-export default function BudgetOverviewCard({ country, budget }: BudgetOverviewCardProps) {
+export default function BudgetOverviewCard({ tripId, country, budget }: BudgetOverviewCardProps) {
   const [budgetUsage, setBudgetUsage] = useState(100)
+  const [usedAmount, setUsedAmount] = useState(0)
+
+  useEffect(() => {
+    if (!tripId) return
+
+    const fetchExpensesAmount = async () => {
+      const { data: expenses, error } = await supabase
+        .from('expenses')
+        .select('amount')
+        .eq('trip_id', tripId)
+      if (error) {
+        console.error(error)
+        throw error
+      }
+
+      const totalExpenses = expenses?.reduce((acc, cur) => acc + cur.amount, 0) ?? 0
+      setUsedAmount(totalExpenses)
+      const usedPercent = 100 - (totalExpenses / budget) * 100
+      setBudgetUsage(usedPercent)
+    }
+
+    fetchExpensesAmount()
+  }, [tripId, budget])
 
   return (
     <Card>
@@ -22,7 +47,14 @@ export default function BudgetOverviewCard({ country, budget }: BudgetOverviewCa
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center justify-center text-xl font-semibold">{budget}</div>
+        <div className="flex items-center justify-center text-xl font-semibold">
+          {country && (
+            <>
+              {COUNTRY_MAP[country].currencyCode}
+              {Intl.NumberFormat('ko-KR').format(budget - usedAmount)}
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   )
