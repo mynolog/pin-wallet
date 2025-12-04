@@ -36,7 +36,10 @@ export default function TripDetailPage() {
       </MobilePageHeader>
       <BudgetOverviewCard country={tripDetail.country} budget={tripDetail.budget} />
       <ExpenseTabs startDate={tripDetail.start_date} endDate={tripDetail.end_date} />
-      <CreateExpenseDrawer className="fixed bottom-18 left-1/2 -translate-x-1/2 transform" />
+      <CreateExpenseDrawer
+        tripId={tripId}
+        className="fixed bottom-18 left-1/2 -translate-x-1/2 transform"
+      />
     </div>
   )
 }
