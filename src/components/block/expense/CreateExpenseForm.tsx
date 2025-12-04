@@ -11,7 +11,6 @@ import { EXPENSE_CATEGORY_OPTIONS } from '@/constants/category'
 import { createExpenseFormSchema, type CreateExpenseSchema } from '@/schemas/expense'
 import { useAuthStore } from '@/stores/authStore'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQueryClient } from '@tanstack/react-query'
 import { Controller, useForm } from 'react-hook-form'
 import { useCurrentGeolocation } from '@/hooks/useCurrentGeolocation'
 import { Button } from '@/components/ui/button'
@@ -33,7 +32,6 @@ export default function CreateExpenseForm({ tripId, onSave, onCancel }: CreateEx
   const { isLoaded, getPlaceName } = useReverseGeocode()
 
   const user = useAuthStore((state) => state.user)
-  const queryClient = useQueryClient()
   const { register, handleSubmit, control, setValue } = useForm<CreateExpenseSchema>({
     resolver: zodResolver(createExpenseFormSchema),
     defaultValues: {

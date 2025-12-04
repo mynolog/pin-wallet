@@ -9,7 +9,7 @@ import CreateExpenseDrawer from '@/components/block/expense/CreateExpenseDrawer'
 
 export default function TripDetailPage() {
   const { tripId } = useParams<{ tripId: string }>()
-  const { data: tripDetail, isLoading, error } = useTripDetail(tripId ?? null)
+  const { data: tripDetail, isLoading } = useTripDetail(tripId ?? null)
 
   if (!tripId) {
     return <div>잘못된 접근입니다.</div>
