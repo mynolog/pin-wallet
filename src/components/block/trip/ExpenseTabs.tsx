@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { COUNTRY_MAP } from '@/constants/country'
 import { useExpenses } from '@/hooks/expenses/useExpenses'
 import { getDateRange } from '@/lib/utils'
 import { format } from 'date-fns'
@@ -8,15 +9,14 @@ import { format } from 'date-fns'
 interface ExpenseTabsProps {
   startDate: string
   endDate: string
+  country: string
 }
 
-export default function ExpenseTabs({ startDate, endDate }: ExpenseTabsProps) {
+export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabsProps) {
   const { data: expenses, isLoading, error } = useExpenses()
   const dates = getDateRange(startDate, endDate)
   const today = format(new Date(), 'yyyy-MM-dd')
   const defaultTab = dates.includes(today) ? today : 'all'
-
-  console.log(expenses)
 
   return (
     <Tabs defaultValue={defaultTab}>
@@ -48,7 +48,8 @@ export default function ExpenseTabs({ startDate, endDate }: ExpenseTabsProps) {
                 <CardContent className="py-2">
                   <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
                   <div className="text-xl font-semibold text-emerald-500">
-                    &yen; {expense.amount}
+                    {COUNTRY_MAP[country].currencyCode}
+                    {Intl.NumberFormat('ko-KR').format(expense.amount)}
                   </div>
                   <div className="text-sm">지출</div>
                 </CardContent>
