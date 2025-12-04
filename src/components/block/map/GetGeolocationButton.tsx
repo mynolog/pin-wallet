@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { LocateFixed } from 'lucide-react'
 
 interface GetGeolocationButtonProps {
@@ -6,8 +7,13 @@ interface GetGeolocationButtonProps {
 
 export default function GetGeolocationButton({ onClick }: GetGeolocationButtonProps) {
   return (
-    <div className="cursor-pointer p-2 hover:text-orange-400" role="button" onClick={onClick}>
+    <Button
+      variant="outline"
+      className="cursor-pointer p-2 hover:text-orange-400"
+      onClick={onClick}
+    >
       <LocateFixed />
-    </div>
+      <span>현재 위치</span>
+    </Button>
   )
 }
