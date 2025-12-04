@@ -8,11 +8,15 @@ interface GoogleLoginButtonProps {
 }
 
 export function GoogleLoginButton({ className }: GoogleLoginButtonProps) {
+  const BASE_URL =
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_APP_BASE_URL
+      : window.location.origin
   const handleGoogleLogin = () => {
     supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: BASE_URL,
       },
     })
   }
