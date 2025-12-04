@@ -8,3 +8,13 @@ export async function fetchExpenses() {
   if (error) throw error
   return data
 }
+
+export async function deleteExpense(expenseId: string, tripId: string, userId: string) {
+  const { error } = await supabase
+    .from('expenses')
+    .delete()
+    .eq('id', expenseId)
+    .eq('trip_id', tripId)
+    .eq('user_id', userId)
+  if (error) throw error
+}

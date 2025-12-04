@@ -1,3 +1,4 @@
+import type { CountryCode } from '@/types/trip'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -5,11 +6,12 @@ import { COUNTRY_MAP } from '@/constants/country'
 import { useExpenses } from '@/hooks/expenses/useExpenses'
 import { getDateRange } from '@/lib/utils'
 import { format } from 'date-fns'
+import ExpenseOptionsMenu from '../expense/ExpenseOptionsMenu'
 
 interface ExpenseTabsProps {
   startDate: string
   endDate: string
-  country: string
+  country: CountryCode
 }
 
 export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabsProps) {
@@ -45,13 +47,21 @@ export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabs
           <>
             {expenses?.map((expense) => (
               <Card key={expense.id}>
-                <CardContent className="py-2">
-                  <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
-                  <div className="text-xl font-semibold text-emerald-500">
-                    {COUNTRY_MAP[country].currencyCode}
-                    {Intl.NumberFormat('ko-KR').format(expense.amount)}
+                <CardContent className="flex justify-between py-2">
+                  <div>
+                    <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
+                    <div className="text-xl font-semibold text-emerald-500">
+                      {COUNTRY_MAP[country].currencyCode}
+                      {Intl.NumberFormat('ko-KR').format(expense.amount)}
+                    </div>
+                    <div className="text-sm">지출</div>
                   </div>
-                  <div className="text-sm">지출</div>
+                  <ExpenseOptionsMenu
+                    expenseOptions={{
+                      id: expense.id,
+                      trip_id: expense.trip_id,
+                    }}
+                  />
                 </CardContent>
               </Card>
             ))}
@@ -66,11 +76,20 @@ export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabs
             .map((expense) => (
               <Card key={expense.id}>
                 <CardContent className="py-2">
-                  <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
-                  <div className="text-xl font-semibold text-emerald-500">
-                    &yen; {expense.amount}
+                  <div>
+                    <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
+                    <div className="text-xl font-semibold text-emerald-500">
+                      {COUNTRY_MAP[country].currencyCode}
+                      {Intl.NumberFormat('ko-KR').format(expense.amount)}
+                    </div>
+                    <div className="text-sm">지출</div>
                   </div>
-                  <div className="text-sm">지출</div>
+                  <ExpenseOptionsMenu
+                    expenseOptions={{
+                      id: expense.id,
+                      trip_id: expense.trip_id,
+                    }}
+                  />
                 </CardContent>
               </Card>
             ))}
