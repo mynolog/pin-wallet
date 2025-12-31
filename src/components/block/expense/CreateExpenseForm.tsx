@@ -18,7 +18,7 @@ import { MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useReverseGeocode } from '@/hooks/map/useReverseGeocode'
 import type { CreateExpenseSupabaseDto } from '@/types/expense'
-import { supabase } from '@/lib/supabaseClient'
+import { useCreateExpense } from '@/hooks/expenses/useCreateExpense'
 
 interface CreateExpenseFormProps {
   tripId: string
@@ -30,8 +30,8 @@ export default function CreateExpenseForm({ tripId, onSave, onCancel }: CreateEx
   const { geolocation, getCurrentGeolocation } = useCurrentGeolocation(true)
   const [placeName, setPlaceName] = useState<string | null>(null)
   const { isLoaded, getPlaceName } = useReverseGeocode()
-
   const user = useAuthStore((state) => state.user)
+  const { mutateAsync: createExpense } = useCreateExpense(tripId)
   const { register, handleSubmit, control, setValue } = useForm<CreateExpenseSchema>({
     resolver: zodResolver(createExpenseFormSchema),
     defaultValues: {
@@ -59,12 +59,7 @@ export default function CreateExpenseForm({ tripId, onSave, onCancel }: CreateEx
       trip_id: tripId,
     }
 
-    const { error } = await supabase.from('expenses').insert(payload).select('*')
-
-    if (error) {
-      console.error('Insert error:', error)
-      throw error
-    }
+    await createExpense(payload)
 
     if (onSave) onSave()
   }

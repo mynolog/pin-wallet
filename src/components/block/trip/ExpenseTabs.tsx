@@ -12,10 +12,11 @@ interface ExpenseTabsProps {
   startDate: string
   endDate: string
   country: CountryCode
+  tripId: string
 }
 
-export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabsProps) {
-  const { data: expenses, isLoading, error } = useExpenses()
+export default function ExpenseTabs({ startDate, endDate, country, tripId }: ExpenseTabsProps) {
+  const { data: expenses, isLoading, error } = useExpenses(tripId)
   const dates = getDateRange(startDate, endDate)
   const today = format(new Date(), 'yyyy-MM-dd')
   const defaultTab = dates.includes(today) ? today : 'all'
@@ -75,7 +76,7 @@ export default function ExpenseTabs({ startDate, endDate, country }: ExpenseTabs
             .filter((expense) => format(new Date(expense.created_at), 'yyyy-MM-dd') === date)
             .map((expense) => (
               <Card key={expense.id}>
-                <CardContent className="py-2">
+                <CardContent className="flex justify-between py-2">
                   <div>
                     <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
                     <div className="text-xl font-semibold text-emerald-500">

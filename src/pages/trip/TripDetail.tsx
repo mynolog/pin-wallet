@@ -10,6 +10,7 @@ import CreateExpenseDrawer from '@/components/block/expense/CreateExpenseDrawer'
 export default function TripDetailPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const { data: tripDetail, isLoading } = useTripDetail(tripId ?? null)
+  console.log(tripDetail)
 
   if (!tripId) {
     return <div>잘못된 접근입니다.</div>
@@ -39,6 +40,7 @@ export default function TripDetailPage() {
         country={tripDetail.country}
         startDate={tripDetail.start_date}
         endDate={tripDetail.end_date}
+        tripId={tripId}
       />
       <CreateExpenseDrawer
         tripId={tripId}
