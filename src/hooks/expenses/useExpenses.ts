@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchExpenses } from '@/api/expenses'
 
-export function useExpenses() {
+export function useExpenses(tripId: string) {
   return useQuery({
-    queryKey: ['expenses'],
-    queryFn: fetchExpenses,
+    queryKey: ['expenses', tripId],
+    queryFn: () => fetchExpenses(tripId),
   })
 }
