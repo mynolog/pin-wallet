@@ -1,21 +1,17 @@
+import { useTranslation } from 'react-i18next'
 import { GoogleLoginButton } from '@/components/block/auth/google/GoogleLoginButton'
 import LogoutButton from '@/components/block/auth/LogoutButton'
 import MobilePageHeader from '@/components/block/mobile/MobilePageHeader'
+import LanguageSelector from '@/components/block/setting/LanguageSelector'
 import ThemeSelector from '@/components/block/setting/ThemeSelector'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { useAuthStore } from '@/stores/authStore'
+import pkg from '../../../package.json'
 
 export default function SettingsPage() {
   const { user, isAuthenticated } = useAuthStore()
+  const { t } = useTranslation('settings')
 
   return (
     <div className="flex h-screen flex-col">
@@ -25,7 +21,7 @@ export default function SettingsPage() {
           <>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle className="font-semibold">프로필</CardTitle>
+                <CardTitle className="font-semibold">{t('profile.title')}</CardTitle>
               </CardHeader>
               <CardContent className="flex gap-3">
                 <Avatar className="flex h-16 w-16 items-center justify-center rounded-lg">
@@ -47,38 +43,27 @@ export default function SettingsPage() {
           </>
         )}
         <Card className="w-full">
-          <CardHeader className="font-semibold">앱 설정</CardHeader>
+          <CardHeader className="font-semibold">{t('app-setting.title')}</CardHeader>
           <CardContent>
             <ul className="flex w-full flex-col gap-3">
               <li className="flex items-center justify-between">
                 <ThemeSelector />
               </li>
               <li className="flex items-center justify-between">
-                <span>언어 설정</span>
-                <Select defaultValue="KR">
-                  <SelectTrigger className="w-1/2 md:w-1/4">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="KR">한국어</SelectItem>
-                      <SelectItem value="US">영어</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                <LanguageSelector />
               </li>
               <li className="flex items-center justify-between">
-                <span>버전 정보</span>
-                <span className="text-orange-400">0.0.1</span>
+                <span>{t('app-setting.version.sub-title')}</span>
+                <span className="text-orange-400">{pkg.version}</span>
               </li>
               {user && isAuthenticated ? (
                 <li className="flex items-center justify-between">
-                  <span>로그아웃</span>
+                  <span>{t('app-setting.logout.sub-title')}</span>
                   <LogoutButton className="w-1/2 md:w-1/4" />
                 </li>
               ) : (
                 <li className="flex items-center justify-between">
-                  <span>로그인</span>
+                  <span>{t('app-setting.login.sub-title')}</span>
                   <GoogleLoginButton className="w-1/2 text-xs md:w-1/4" />
                 </li>
               )}

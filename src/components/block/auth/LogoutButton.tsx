@@ -2,6 +2,7 @@ import { LogOutIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/authStore'
+import { useTranslation } from 'react-i18next'
 
 interface LogoutButtonProps {
   className?: string
@@ -18,6 +19,7 @@ interface LogoutButtonProps {
 
 export default function LogoutButton({ className, variant }: LogoutButtonProps) {
   const clearAuth = useAuthStore((state) => state.clearAuth)
+  const { t } = useTranslation('common')
 
   const handleLogout = () => {
     clearAuth()
@@ -29,7 +31,7 @@ export default function LogoutButton({ className, variant }: LogoutButtonProps) 
       variant={variant}
     >
       <LogOutIcon />
-      <span>로그아웃</span>
+      <span>{t('logout')}</span>
     </Button>
   )
 }
