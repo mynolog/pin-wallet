@@ -1,6 +1,7 @@
 import { Toaster as ToasterProvider } from 'sonner'
 import TanstackQueryClientProvider from './TanstackQueryProvider'
 import { AuthProvider } from './AuthProvider'
+import ThemeProvider from './ThemeProvider'
 
 interface AppProviderProps {
   children: React.ReactNode
@@ -8,11 +9,13 @@ interface AppProviderProps {
 
 export default function AppProvider({ children }: AppProviderProps) {
   return (
-    <AuthProvider>
-      <TanstackQueryClientProvider>
-        {children}
-        <ToasterProvider position="top-center" />
-      </TanstackQueryClientProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <TanstackQueryClientProvider>
+          {children}
+          <ToasterProvider position="top-center" />
+        </TanstackQueryClientProvider>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
