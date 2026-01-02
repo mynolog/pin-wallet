@@ -1,6 +1,7 @@
 import { GoogleLoginButton } from '@/components/block/auth/google/GoogleLoginButton'
 import LogoutButton from '@/components/block/auth/LogoutButton'
 import MobilePageHeader from '@/components/block/mobile/MobilePageHeader'
+import ThemeSelector from '@/components/block/setting/ThemeSelector'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -11,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/authStore'
 
 export default function SettingsPage() {
@@ -51,29 +51,13 @@ export default function SettingsPage() {
           <CardContent>
             <ul className="flex w-full flex-col gap-3">
               <li className="flex items-center justify-between">
-                <span>다크 모드</span>
-                <Switch className="data-[state=checked]:bg-orange-400" />
-              </li>
-              <li className="flex items-center justify-between">
-                <span>통화</span>
-                <Select defaultValue="KRW">
-                  <SelectTrigger className="w-1/2 md:w-1/4">
-                    <SelectValue placeholder="" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="KRW">₩ 대한민국 원</SelectItem>
-                      <SelectItem value="USD">$ 미국 달러</SelectItem>
-                      <SelectItem value="JPY">¥ 일본 엔</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                <ThemeSelector />
               </li>
               <li className="flex items-center justify-between">
                 <span>언어 설정</span>
                 <Select defaultValue="KR">
                   <SelectTrigger className="w-1/2 md:w-1/4">
-                    <SelectValue placeholder="" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
