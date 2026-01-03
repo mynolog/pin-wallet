@@ -2,5 +2,11 @@
   "login": {
     "google": "Google"
   },
-  "logout": "로그아웃"
+  "logout": "로그아웃",
+  "save": "저장",
+  "cancel": "취소",
+  "confirm": "확인",
+  "continue": "유지하기",
+  "delete": "삭제",
+  "delete-dialog-message": "이 작업은 되돌릴 수 없습니다. 계속 진행하시겠습니까?"
 }

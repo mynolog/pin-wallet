@@ -1,0 +1,14 @@
+{
+  "page-title": "홈",
+  "error": {
+    "fetch": "Failed to load trips. Please try again or refresh the page."
+  },
+  "empty": {
+    "title": "떠날 준비, 지금 바로 시작!",
+    "description": "간편하게 기록하고 손쉽게 관리할 수 있어요.",
+    "cta": "우측 상단 + 버튼을 눌러 여행 계획을 기록해보세요!"
+  },
+  "button": {
+    "new-trip": "새로운 여행"
+  }
+}

@@ -1,7 +1,7 @@
 import type { CountryCode } from '@/types/trip'
 
 interface CountryMap {
-  label: string
+  labelKey: string
   currency: string
   currencyCode: string
   emoji: string
@@ -9,13 +9,13 @@ interface CountryMap {
 
 export const COUNTRY_MAP: Record<CountryCode, CountryMap> = {
   JP: {
-    label: '일본',
+    labelKey: 'form.country.jp',
     currency: 'JPY',
     currencyCode: '¥',
     emoji: '🇯🇵',
   },
   KR: {
-    label: '대한민국',
+    labelKey: 'form.country.ko',
     currency: 'KRW',
     currencyCode: '₩',
     emoji: '🇰🇷',
@@ -26,6 +26,6 @@ export const COUNTRY_CODES = ['JP', 'KR'] as const
 
 export const COUNTRY_OPTIONS = Object.entries(COUNTRY_MAP).map(([code, info]) => ({
   value: code as CountryCode,
-  label: info.label,
+  labelKey: info.labelKey,
   emoji: info.emoji,
 }))

@@ -1,0 +1,21 @@
+{
+  "page-title": "New trip",
+  "form": {
+    "title": "Title",
+    "country": {
+      "title": "Country",
+      "ko": "South Korea",
+      "jp": "Japan"
+    },
+    "start-date": {
+      "title": "Start date",
+      "label": "Start"
+    },
+    "end-date": {
+      "title": "End date",
+      "label": "End"
+    },
+    "budget": "Budget",
+    "description": "Memo (optional)"
+  }
+}

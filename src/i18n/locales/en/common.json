@@ -2,5 +2,12 @@
   "login": {
     "google": "Google"
   },
-  "logout": "Logout"
+  "logout": "Logout",
+
+  "save": "Save",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "continue": "Continue",
+  "delete": "Delete",
+  "delete-dialog-message": "This action cannot be undone. Do you want to continue?"
 }

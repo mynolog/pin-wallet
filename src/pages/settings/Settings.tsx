@@ -15,7 +15,7 @@ export default function SettingsPage() {
 
   return (
     <div className="flex h-screen flex-col">
-      <MobilePageHeader title="설정" />
+      <MobilePageHeader title={t('page-title')} />
       <div className="flex flex-1 flex-col items-center space-y-6 p-4">
         {isAuthenticated && user && (
           <>

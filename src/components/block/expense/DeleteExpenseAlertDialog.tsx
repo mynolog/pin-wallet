@@ -13,6 +13,7 @@ import {
 import { useAuthStore } from '@/stores/authStore'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteExpense } from '@/api/expenses'
+import { useTranslation } from 'react-i18next'
 
 interface DeleteExpenseAlertDialogProps {
   id: DeleteExpenseSupabaseDto['id']
@@ -22,6 +23,8 @@ interface DeleteExpenseAlertDialogProps {
 export default function DeleteExpenseAlertDialog({ id, tripId }: DeleteExpenseAlertDialogProps) {
   const user = useAuthStore((state) => state.user)
   const queryClient = useQueryClient()
+  const { t: tTrip } = useTranslation('trip')
+  const { t: tCommon } = useTranslation('common')
 
   const deleteExpenseMutation = useMutation({
     mutationFn: async () => {
@@ -42,20 +45,18 @@ export default function DeleteExpenseAlertDialog({ id, tripId }: DeleteExpenseAl
       <AlertDialogTrigger asChild>
         <div className="flex items-center gap-2 text-sm">
           <Eraser className="h-5 w-5" />
-          <span>지출 내역 삭제하기</span>
+          <span>{tTrip('expense-card.delete')}</span>
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogHeader>지출 내역 삭제</AlertDialogHeader>
+          <AlertDialogHeader>{tTrip('expense-card.delete')}</AlertDialogHeader>
         </AlertDialogHeader>
-        <AlertDialogDescription>
-          이 작업은 되돌릴 수 없습니다. 계속 진행하시겠습니까?
-        </AlertDialogDescription>
+        <AlertDialogDescription>{tCommon('delete-dialog-message')}</AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel className="text-xs">유지하기</AlertDialogCancel>
+          <AlertDialogCancel className="text-xs">{tCommon('cancel')}</AlertDialogCancel>
           <AlertDialogAction className="text-xs" onClick={handleDeleteExpense}>
-            삭제
+            {tCommon('delete')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

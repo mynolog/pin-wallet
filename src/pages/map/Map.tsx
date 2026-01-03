@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { useTripStore } from '@/stores/tripStore'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabaseClient'
+import { useTranslation } from 'react-i18next'
 
 interface ExpenseMarker {
   id: string
@@ -22,6 +23,7 @@ export default function MapPage() {
   })
   const tripId = useTripStore((state) => state.tripId)
   const user = useAuthStore((state) => state.user)
+  const { t } = useTranslation('map')
   const [expenseMarkers, setExpenseMakers] = useState<ExpenseMarker[] | null>(null)
   const { geolocation, getCurrentGeolocation } = useCurrentGeolocation(true)
   useDisableBodyScroll()
@@ -52,7 +54,7 @@ export default function MapPage() {
   return (
     <div className="flex h-screen w-full flex-col">
       <MobilePageHeader
-        title="소비 지도"
+        title={t('page-title')}
         children={<GetGeolocationButton onClick={() => getCurrentGeolocation()} />}
       />
       <GoogleMap

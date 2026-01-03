@@ -7,6 +7,8 @@ import { useExpenses } from '@/hooks/expenses/useExpenses'
 import { getDateRange } from '@/lib/utils'
 import { format } from 'date-fns'
 import ExpenseOptionsMenu from '../expense/ExpenseOptionsMenu'
+import { useTranslation } from 'react-i18next'
+import { useLanguageStore } from '@/stores/languageStore'
 
 interface ExpenseTabsProps {
   startDate: string
@@ -17,6 +19,8 @@ interface ExpenseTabsProps {
 
 export default function ExpenseTabs({ startDate, endDate, country, tripId }: ExpenseTabsProps) {
   const { data: expenses, isLoading, error } = useExpenses(tripId)
+  const { t } = useTranslation('trip')
+  const language = useLanguageStore((state) => state.language)
   const dates = getDateRange(startDate, endDate)
   const today = format(new Date(), 'yyyy-MM-dd')
   const defaultTab = dates.includes(today) ? today : 'all'
@@ -24,7 +28,7 @@ export default function ExpenseTabs({ startDate, endDate, country, tripId }: Exp
   return (
     <Tabs defaultValue={defaultTab}>
       <TabsList>
-        <TabsTrigger value="all">전체</TabsTrigger>
+        <TabsTrigger value="all">{t('tab.all')}</TabsTrigger>
         {dates.map((date) => {
           const day = new Date(date).getDate()
           return (
@@ -40,9 +44,7 @@ export default function ExpenseTabs({ startDate, endDate, country, tripId }: Exp
             <Skeleton className="h-32 w-full rounded-lg bg-gray-100" key={index} />
           ))}
 
-        {error && (
-          <div className="h-32 w-full">알 수 없는 오류가 발생했습니다. 새로고침 해주세요.</div>
-        )}
+        {error && <div className="h-32 w-full">{t('error.fetch')}</div>}
 
         {!isLoading && !error && (expenses ?? []).length !== 0 && (
           <>
@@ -50,12 +52,17 @@ export default function ExpenseTabs({ startDate, endDate, country, tripId }: Exp
               <Card key={expense.id}>
                 <CardContent className="flex justify-between py-2">
                   <div>
-                    <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
+                    <div className="text-sm">
+                      {format(
+                        expense.created_at,
+                        language === 'ko' ? 'M월 d일 HH:mm' : 'MMM d HH:mm',
+                      )}
+                    </div>
                     <div className="text-xl font-semibold text-emerald-500">
                       {COUNTRY_MAP[country].currencyCode}
                       {Intl.NumberFormat('ko-KR').format(expense.amount)}
                     </div>
-                    <div className="text-sm">지출</div>
+                    <div className="text-sm">{t('expense-card.expense')}</div>
                   </div>
                   <ExpenseOptionsMenu
                     expenseOptions={{
@@ -78,12 +85,17 @@ export default function ExpenseTabs({ startDate, endDate, country, tripId }: Exp
               <Card key={expense.id}>
                 <CardContent className="flex justify-between py-2">
                   <div>
-                    <div className="text-sm">{format(expense.created_at, 'M월 d일 HH:mm')}</div>
+                    <div className="text-sm">
+                      {format(
+                        expense.created_at,
+                        language === 'ko' ? 'M월 d일 HH:mm' : 'MMM d HH:mm',
+                      )}
+                    </div>
                     <div className="text-xl font-semibold text-emerald-500">
                       {COUNTRY_MAP[country].currencyCode}
                       {Intl.NumberFormat('ko-KR').format(expense.amount)}
                     </div>
-                    <div className="text-sm">지출</div>
+                    <div className="text-sm">{t('expense-card.expense')}</div>
                   </div>
                   <ExpenseOptionsMenu
                     expenseOptions={{
