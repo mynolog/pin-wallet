@@ -1,0 +1,35 @@
+{
+  "page-title": "Settings",
+  "profile": {
+    "title": "Profile"
+  },
+  "app-setting": {
+    "title": "App Settings",
+    "theme": {
+      "sub-title": "Theme",
+      "options": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
+      }
+    },
+    "language": {
+      "sub-title": "Language",
+      "options": {
+        "ko": "Korean",
+        "en": "English"
+      }
+    },
+    "version": {
+      "sub-title": "Version"
+    },
+    "login": {
+      "sub-title": "Login",
+      "google": "Google"
+    },
+    "logout": {
+      "sub-title": "Logout",
+      "value": "Logout"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "page-title": "여행",
+  "form": {
+    "title": "여행 제목",
+    "country": {
+      "title": "여행 국가",
+      "ko": "대한민국",
+      "jp": "일본"
+    },
+    "start-date": {
+      "title": "여행 시작일",
+      "label": "시작일"
+    },
+    "end-date": {
+      "title": "여행 종료일",
+      "label": "종료일"
+    },
+    "budget": "여행 예산",
+    "description": "메모 (선택)"
+  }
+}

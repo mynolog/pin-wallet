@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { supabase } from '@/lib/supabaseClient'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
+import { useTranslation } from 'react-i18next'
 
 type UpdateTripBudgetSchema = Pick<UpdateTripSchema, 'budget'>
 
@@ -25,6 +26,7 @@ export default function UpdateTripBudgetForm({
 }: UpdateTripBudgetFormProps) {
   const user = useAuthStore((state) => state.user)
   const queryClient = useQueryClient()
+  const { t: tCommon } = useTranslation('common')
 
   const updateTripMutation = useMutation({
     mutationFn: async (data: { budget: number }) => {
@@ -72,9 +74,9 @@ export default function UpdateTripBudgetForm({
       <Input id="budget" type="number" {...register('budget', { valueAsNumber: true })} />
       <div className="flex w-full justify-end gap-2 py-2">
         <Button variant="outline" onClick={onCancel}>
-          취소
+          {tCommon('cancel')}
         </Button>
-        <Button type="submit">저장</Button>
+        <Button type="submit">{tCommon('save')}</Button>
       </div>
     </form>
   )

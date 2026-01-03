@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { CalendarArrowDown, CalendarArrowUp } from 'lucide-react'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -43,6 +43,8 @@ import {
 import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/stores/authStore'
 import { format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
+import { useLanguageStore } from '@/stores/languageStore'
 
 /* TODO: CreateTripForm 컴포넌트 리팩토링
 - watch api -> Controller or field value로 대체
@@ -52,6 +54,9 @@ import { format } from 'date-fns'
 
 export default function CreateTripForm() {
   const user = useAuthStore((state) => state.user)
+  const { t: tCreateTrip } = useTranslation('createTrip')
+  const { t: tCommon } = useTranslation('common')
+  const language = useLanguageStore((state) => state.language)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const {
@@ -110,14 +115,12 @@ export default function CreateTripForm() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>새로운 여행</CardTitle>
-      </CardHeader>
+      <CardHeader />
       <CardContent>
         <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <div className="flex h-4 items-center gap-2">
-              <Label htmlFor="title">여행 제목</Label>
+              <Label htmlFor="title">{tCreateTrip('form.title')}</Label>
               {errors.title && (
                 <p className="ml-1 text-xs leading-none font-semibold text-orange-600">
                   {errors.title.message}
@@ -129,7 +132,7 @@ export default function CreateTripForm() {
 
           <div className="flex flex-col gap-2">
             <div className="flex h-4 items-center gap-2">
-              <Label htmlFor="country">여행 국가</Label>
+              <Label htmlFor="country">{tCreateTrip('form.country.title')}</Label>
               {errors.country && (
                 <p className="ml-1 text-xs leading-none font-semibold text-orange-600">
                   {errors.country.message}
@@ -145,9 +148,9 @@ export default function CreateTripForm() {
                     <SelectValue placeholder="국가 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    {COUNTRY_OPTIONS.map(({ value, label, emoji }) => (
+                    {COUNTRY_OPTIONS.map(({ value, labelKey, emoji }) => (
                       <SelectItem key={value} value={value}>
-                        {emoji} {label}
+                        {emoji} {tCreateTrip(labelKey)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -158,7 +161,7 @@ export default function CreateTripForm() {
 
           <div className="flex flex-col gap-2">
             <div className="flex h-4 items-center gap-2">
-              <Label htmlFor="start-date">여행 시작일</Label>
+              <Label htmlFor="start-date">{tCreateTrip('form.start-date.title')}</Label>
               {errors.start_date && (
                 <p className="ml-1 text-xs leading-none font-semibold text-orange-600">
                   {errors.start_date.message}
@@ -172,13 +175,15 @@ export default function CreateTripForm() {
                   className="bg-orange-100 text-orange-500 hover:bg-orange-400 hover:text-orange-100"
                 >
                   <CalendarArrowUp />
-                  {!currentStartDate ? '시작일' : currentStartDate.toLocaleDateString()}
+                  {!currentStartDate
+                    ? tCreateTrip('form.start-date.label')
+                    : currentStartDate.toLocaleDateString()}
                 </Button>
               </DrawerTrigger>
               <DrawerContent className="h-screen">
                 <div className="w-full">
                   <DrawerHeader className="flex w-full justify-center">
-                    <DrawerTitle>여행 시작일</DrawerTitle>
+                    <DrawerTitle>{tCreateTrip('form.start-date.title')}</DrawerTitle>
                   </DrawerHeader>
                 </div>
                 <div className="flex w-full items-center justify-center">
@@ -187,6 +192,7 @@ export default function CreateTripForm() {
                     name="start_date"
                     render={({ field }) => (
                       <Calendar
+                        lang={language}
                         mode="single"
                         selected={field.value}
                         onSelect={(date) => {
@@ -229,7 +235,7 @@ export default function CreateTripForm() {
 
           <div className="flex flex-col gap-2">
             <div className="flex h-4 items-center gap-2">
-              <Label htmlFor="end-date">여행 종료일</Label>
+              <Label htmlFor="end-date">{tCreateTrip('form.end-date.title')}</Label>
               {errors.end_date && (
                 <p className="ml-1 text-xs leading-none font-semibold text-orange-600">
                   {errors.end_date.message}
@@ -243,13 +249,15 @@ export default function CreateTripForm() {
                   className="bg-orange-100 text-orange-500 hover:bg-orange-400 hover:text-orange-100"
                 >
                   <CalendarArrowDown />
-                  {!currentEndDate ? '종료일' : currentEndDate.toLocaleDateString()}
+                  {!currentEndDate
+                    ? tCreateTrip('form.end-date.label')
+                    : currentEndDate.toLocaleDateString()}
                 </Button>
               </DrawerTrigger>
               <DrawerContent className="h-screen">
                 <div className="w-full">
                   <DrawerHeader className="flex w-full justify-center">
-                    <DrawerTitle>여행 종료일</DrawerTitle>
+                    <DrawerTitle>{tCreateTrip('form.end-date.title')}</DrawerTitle>
                   </DrawerHeader>
                 </div>
                 <div className="flex w-full items-center justify-center">
@@ -261,6 +269,7 @@ export default function CreateTripForm() {
 
                       return (
                         <Calendar
+                          lang={language}
                           mode="single"
                           selected={field.value}
                           onSelect={(date) => {
@@ -309,7 +318,7 @@ export default function CreateTripForm() {
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-5">
               <div className="flex h-4 items-center gap-2">
-                <Label htmlFor="budget">여행 예산</Label>
+                <Label htmlFor="budget">{tCreateTrip('form.budget')}</Label>
 
                 {currentCountry && (
                   <div className="flex items-center gap-2 leading-none">
@@ -350,7 +359,7 @@ export default function CreateTripForm() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="description">메모 (선택)</Label>
+            <Label htmlFor="description">{tCreateTrip('form.description')}</Label>
             <Input id="description" {...register('description')} />
             {errors.description && <p>{errors.description.message}</p>}
           </div>
@@ -358,27 +367,26 @@ export default function CreateTripForm() {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button type="button" className="text-xs text-orange-500" variant="secondary">
-                  취소
+                  {tCommon('cancel')}
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>작성 취소</AlertDialogTitle>
+                  <AlertDialogTitle>{tCommon('delete')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    지금까지 입력한 내용이 모두 사라지며 홈 화면으로 돌아갑니다. 이 작업은 되돌릴 수
-                    없습니다. 계속 진행하시겠습니까?
+                    {tCommon('delete-dialog-message')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className="text-xs">계속 작성하기</AlertDialogCancel>
+                  <AlertDialogCancel className="text-xs">{tCommon('continue')}</AlertDialogCancel>
                   <AlertDialogAction className="text-xs" onClick={handleCancelCreateTrip}>
-                    삭제
+                    {tCommon('delete')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
             <Button type="submit" className="w-1/5 bg-orange-400 text-xs hover:bg-orange-500">
-              저장
+              {tCommon('save')}
             </Button>
           </div>
         </form>

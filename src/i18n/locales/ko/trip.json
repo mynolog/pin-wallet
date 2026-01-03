@@ -1,0 +1,22 @@
+{
+  "error": {
+    "fetch": "지출 데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도하거나 새로고침해 주세요."
+  },
+  "overview": {
+    "remaining-budget": "남은 돈"
+  },
+  "tab": {
+    "all": "전체"
+  },
+  "expense-card": {
+    "expense": "지출",
+    "delete": "지출 내역 삭제",
+    "create": "새로운 지출"
+  },
+  "menu": {
+    "title": "제목 편집",
+    "budget": "예산 편집",
+    "description": "메모 편집",
+    "delete": "여행 삭제"
+  }
+}

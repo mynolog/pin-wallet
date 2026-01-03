@@ -1,0 +1,35 @@
+{
+  "page-title": "설정",
+  "profile": {
+    "title": "프로필"
+  },
+  "app-setting": {
+    "title": "앱 설정",
+    "theme": {
+      "sub-title": "테마",
+      "options": {
+        "system": "OS 설정",
+        "light": "라이트",
+        "dark": "다크"
+      }
+    },
+    "language": {
+      "sub-title": "언어",
+      "options": {
+        "ko": "한국어",
+        "en": "영어"
+      }
+    },
+    "version": {
+      "sub-title": "버전"
+    },
+    "login": {
+      "sub-title": "로그인",
+      "google": "Google"
+    },
+    "logout": {
+      "sub-title": "로그아웃",
+      "value": "로그아웃"
+    }
+  }
+}

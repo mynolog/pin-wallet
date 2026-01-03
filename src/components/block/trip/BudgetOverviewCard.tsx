@@ -4,6 +4,7 @@ import { COUNTRY_MAP } from '@/constants/country'
 import { Progress } from '@/components/ui/progress'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import { useTranslation } from 'react-i18next'
 
 interface BudgetOverviewCardProps {
   tripId: string
@@ -14,6 +15,7 @@ interface BudgetOverviewCardProps {
 export default function BudgetOverviewCard({ tripId, country, budget }: BudgetOverviewCardProps) {
   const [budgetUsage, setBudgetUsage] = useState(100)
   const [usedAmount, setUsedAmount] = useState(0)
+  const { t } = useTranslation('trip')
 
   useEffect(() => {
     if (!tripId) return
@@ -42,7 +44,7 @@ export default function BudgetOverviewCard({ tripId, country, budget }: BudgetOv
       <CardHeader>
         <Progress value={budgetUsage} className="[&>div]:bg-orange-600" />
         <div className="flex items-center justify-between">
-          <CardTitle>남은 돈</CardTitle>
+          <CardTitle>{t('overview.remaining-budget')}</CardTitle>
           {country && <span className="text-orange-500">{COUNTRY_MAP[country].currency}</span>}
         </div>
       </CardHeader>

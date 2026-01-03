@@ -1,0 +1,14 @@
+{
+  "page-title": "Home",
+  "error": {
+    "fetch": "여행 데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도하거나 새로고침해 주세요."
+  },
+  "empty": {
+    "title": "Ready to go? Let's get started!",
+    "description": "Easily record and manage your trips in one place.",
+    "cta": "Tap the + button in the top right to start planning your trip."
+  },
+  "button": {
+    "new-trip": "New trip"
+  }
+}

@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { BanknoteArrowDown } from 'lucide-react'
 import CreateExpenseForm from './CreateExpenseForm'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface CreateExpenseDrawerProps {
   tripId: string
@@ -12,13 +13,15 @@ interface CreateExpenseDrawerProps {
 
 export default function CreateExpenseDrawer({ className, tripId }: CreateExpenseDrawerProps) {
   const [createExpenseDrawerOpen, setCreateExpenseDrawerOpen] = useState(false)
+  const { t: tTrip } = useTranslation('trip')
+
   return (
     <div className={cn('', className)}>
       <Drawer open={createExpenseDrawerOpen} onOpenChange={setCreateExpenseDrawerOpen}>
         <DrawerTrigger asChild>
           <Button variant="outline">
             <BanknoteArrowDown />
-            <span>새로운 지출</span>
+            <span>{tTrip('expense-card.create')}</span>
           </Button>
         </DrawerTrigger>
         <DrawerContent>

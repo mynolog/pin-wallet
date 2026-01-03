@@ -9,6 +9,7 @@ import {
 import { DollarSign } from 'lucide-react'
 import { useState } from 'react'
 import UpdateTripBudgetForm from './UpdateTripBudgetForm'
+import { useTranslation } from 'react-i18next'
 
 interface UpdateTripBudgetDrawerProps {
   id: UpdateTripSupabaseDto['id']
@@ -17,18 +18,20 @@ interface UpdateTripBudgetDrawerProps {
 
 export default function UpdateTripBudgetDrawer({ id, budget }: UpdateTripBudgetDrawerProps) {
   const [budgetDrawerOpen, setBudgetDrawerOpen] = useState(false)
+  const { t: tTrip } = useTranslation('trip')
+
   return (
     <Drawer open={budgetDrawerOpen} onOpenChange={setBudgetDrawerOpen}>
       <DrawerTrigger asChild>
         <div className="flex items-center gap-2 text-sm">
           <DollarSign className="h-5 w-5" />
-          <span>예산 편집</span>
+          <span>{tTrip('menu.budget')}</span>
         </div>
       </DrawerTrigger>
       <DrawerContent>
         <div>
           <DrawerHeader>
-            <DrawerTitle>예산 편집</DrawerTitle>
+            <DrawerTitle>{tTrip('menu.budget')}</DrawerTitle>
           </DrawerHeader>
         </div>
         <div className="p-4">

@@ -1,11 +1,14 @@
-import { Button } from '@/components/ui/button'
 import { LocateFixed } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
 
 interface GetGeolocationButtonProps {
   onClick: () => void
 }
 
 export default function GetGeolocationButton({ onClick }: GetGeolocationButtonProps) {
+  const { t } = useTranslation('map')
+
   return (
     <Button
       variant="outline"
@@ -13,7 +16,7 @@ export default function GetGeolocationButton({ onClick }: GetGeolocationButtonPr
       onClick={onClick}
     >
       <LocateFixed />
-      <span>현재 위치</span>
+      <span>{t('button.current-location')}</span>
     </Button>
   )
 }

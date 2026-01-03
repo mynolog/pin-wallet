@@ -1,0 +1,22 @@
+{
+  "error": {
+    "fetch": "Failed to load expenses. Please try again or refresh the page."
+  },
+  "overview": {
+    "remaining-budget": "Remaining budget"
+  },
+  "tab": {
+    "all": "All"
+  },
+  "expense-card": {
+    "expense": "Expense",
+    "delete": "Delete Expense",
+    "create": "New Expense"
+  },
+  "menu": {
+    "title": "Edit Title",
+    "budget": "Edit Budget",
+    "description": "Edit Memo",
+    "delete": "Delete Trip"
+  }
+}

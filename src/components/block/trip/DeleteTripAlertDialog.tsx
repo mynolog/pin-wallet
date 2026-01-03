@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteTrip } from '@/api/trips'
 import { useNavigate } from 'react-router'
 import { ROUTES } from '@/routes'
+import { useTranslation } from 'react-i18next'
 
 interface DeleteTripAlertDialogProps {
   id: DeleteTripSupabaseDto['id']
@@ -25,6 +26,8 @@ export default function DeleteTripAlertDialog({ id }: DeleteTripAlertDialogProps
   const user = useAuthStore((state) => state.user)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const { t: tTrip } = useTranslation('trip')
+  const { t: tCommon } = useTranslation('common')
 
   const deleteTripMutation = useMutation({
     mutationFn: async () => {
@@ -47,22 +50,19 @@ export default function DeleteTripAlertDialog({ id }: DeleteTripAlertDialogProps
       <AlertDialogTrigger asChild>
         <div className="flex items-center gap-2 text-sm">
           <Eraser className="h-5 w-5" />
-          <span>여행 삭제하기</span>
+          <span>{tTrip('menu.delete')}</span>
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>여행 삭제</AlertDialogTitle>
+          <AlertDialogTitle>{tTrip('menu.delete')}</AlertDialogTitle>
         </AlertDialogHeader>
-        <AlertDialogDescription>
-          지금까지 입력한 내용이 모두 사라지며 홈 화면으로 돌아갑니다. 이 작업은 되돌릴 수 없습니다.
-          계속 진행하시겠습니까?
-        </AlertDialogDescription>
+        <AlertDialogDescription>{tCommon('delete-dialog-message')}</AlertDialogDescription>
 
         <AlertDialogFooter>
-          <AlertDialogCancel className="text-xs">유지하기</AlertDialogCancel>
+          <AlertDialogCancel className="text-xs">{tCommon('cancel')}</AlertDialogCancel>
           <AlertDialogAction className="text-xs" onClick={handleDeleteTrip}>
-            삭제
+            {tCommon('delete')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
