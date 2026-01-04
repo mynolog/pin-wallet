@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 import MobilePageHeader from '@/components/block/mobile/MobilePageHeader'
 import GetGeolocationButton from '@/components/block/map/GetGeolocationButton'
 import { Spinner } from '@/components/ui/spinner'
@@ -18,8 +18,10 @@ interface ExpenseMarker {
 }
 
 export default function MapPage() {
-  const { isLoaded } = useLoadScript({
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    id: 'google-map-script',
+    libraries: ['maps'],
   })
   const tripId = useTripStore((state) => state.tripId)
   const user = useAuthStore((state) => state.user)
