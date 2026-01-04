@@ -1,9 +1,11 @@
-import { useLoadScript } from '@react-google-maps/api'
+import { useJsApiLoader } from '@react-google-maps/api'
 import { useCallback } from 'react'
 
 export function useReverseGeocode() {
-  const { isLoaded } = useLoadScript({
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    id: 'google-map-geocode',
+    libraries: ['geocoding', 'maps'],
   })
 
   const getPlaceName = useCallback(
